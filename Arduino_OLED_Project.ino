@@ -8,6 +8,18 @@ using namespace std;
 
 OLED_GFX oled = OLED_GFX();
 
+char* messages[24][3] = {{"you", "are my", "everything"}, {"i", "love", "you!"}, {"i", "would eat", "durian for you"},
+                        {"i love", "planning for", "our future together"}, {"carrying", "you is my", "favorite workout"},
+                        {"whenever", "you're with me", "i feel safe"}, {"whenever", "you need me", "i'll be there"},
+                        {"you look so", "stunning in", "anything you wear"}, {"i think", "you have", "long legs!"},
+                        {"you'll", "always be", "my best friend"}, {"you're so", "cute when", "you're passionate"},
+                        {"being intimate", "with you makes my", "heart flutter A LOT"}, {"you make", "me laugh like", "no one else"},
+                        {"saying goodnight", "is the hardest", "part of my day"}, {"you have", "the prettiest", "voice in the world"},
+                        {"i", "wanna cuddle", "you forever"}, {"you", "are", "a-dory-able!"}, {"i love", "you more than", "you love noodles!"},
+                        {"my worst", "day will never", "come if im with you"}, {"our 3 dogs, 1 (maybe)", "cat, and fish will", "have the bestest mom!"},
+                        {"your", "smile is", "unbelievably pretty"}, {"nature is", "prettier when i'm", "hiking with you"},
+                        {"i blush when", "you tell me to wait", "a sex- oop, SEC ;)"}, {"the only time i want", "to do the dishes is", "when you tell me to"}};
+
 void setup()  {
 
   //Init GPIO
@@ -33,23 +45,14 @@ void setup()  {
 #endif
 
   oled.Device_Init();
+}
 
-  char* str[24][3] = {{"you", "are my", "everything"}, {"i", "love", "you!"}, {"i", "would eat", "durian for you"},
-                    {"i love", "planning for", "our future together"}, {"carrying", "you is my", "favorite workout"},
-                    {"whenever", "you're with me", "i feel safe"}, {"whenever", "you need me", "i'll be there"},
-                    {"you look so", "stunning in", "anything you wear"}, {"i think", "you have", "long legs!"},
-                    {"you'll", "always be", "my best friend"}, {"you're so", "cute when", "you're passionate"},
-                    {"being intimate", "with you makes my", "heart flutter A LOT"}, {"you make", "me laugh like", "no one else"},
-                    {"saying goodnight", "is the hardest", "part of my day"}, {"you have", "the prettiest", "voice in the world"},
-                    {"i", "wanna cuddle", "you forever"}, {"you", "are", "a-dory-able!"}, {"i love", "you more than", "you love noodles!"},
-                    {"my worst", "day will never", "come if im with you"}, {"our 3 dogs, 1 (maybe)", "cat, and fish will", "have the bestest mom!"},
-                    {"your", "smile is", "unbelievably pretty"}, {"nature is", "prettier when i'm", "hiking with you"},
-                    {"i blush when", "you tell me to wait", "a sex- oop, SEC ;)"}, {"the only time i want", "to do the dishes is", "when you tell me to"}};
+void printMessages(char* messages[][3]){
   for(int i = 0; i < 24; i ++){
     oled.Set_Color(VICTORIA_BLUE);
     for(int j = 0; j < 3; j ++){
-      int start = 64 - strlen(str[i][j]) * 2.88;
-      oled.print_String(start, (j + 3.2) * 15, str[i][j], FONT_5X8);
+      int start = 64 - strlen(messages[i][j]) * 2.88; // centers text horizontally based on length of string
+      oled.print_String(start, (j + 3.2) * 15, messages[i][j], FONT_5X8);
     }
     oled.Draw_Heart();
     delay(1000);
@@ -57,7 +60,29 @@ void setup()  {
   }
 }
 
-
 void loop() {
-
+  printMessages(messages);
 }
+
+//unsigned long prevMillis = 0;
+//const long interval = 60000;
+//
+//unsigned int currMesssage = mem.read(0);
+//unsigned int prevDay = mem.read(1);
+//
+//void loop(){
+//  unsigned long currMillis = millis();
+//
+//  if(currMillis - prevMillis >= interval){
+//    unsigned int currDay = getDay();
+//    
+//    if(currDay != prevDay){
+//      oled.Clear_Screen();
+//      currMessage = (currMessage + 1) % 24;
+//      printMessage(currMessage);
+//      mem.write(0, currMessage);
+//      mem.write(1, currDay);
+//      prevDay = currDay;
+//    }
+//  }
+//}
